@@ -25,25 +25,25 @@ def myClick():
     d = {"Launch Angle": launchangle, "Exit Velocity": exitvelocity}
     df = pd.DataFrame(data=d)
     df = df.dropna(how='any')
+    df = df.reindex(columns=["Exit Velocity","Launch Angle"])
     print(df.head(10))
 
     kde = KernelDensity(bandwidth = 1.0, kernel = 'gaussian').fit(df)
-    samples = kde.sample(n_samples = 10000, random_state = 42)
 
-    samples = pd.DataFrame(samples, columns=['Launch Angle','Exit Velocity'])
     sns.set_theme(style="white")
 
-    clip_min_y = min(samples['Exit Velocity']) - 10
-    clip_max_y = max(samples['Exit Velocity']) + 10
-    clip_min_x = min(samples['Launch Angle']) - 10
-    clip_max_x = max(samples['Launch Angle']) + 10
+    clip_min_x = min(df['Exit Velocity']) - 10
+    clip_max_x = max(df['Exit Velocity']) + 10
+    clip_min_y = min(df['Launch Angle']) - 10
+    clip_max_y = max(df['Launch Angle']) + 10
 
-    g = sns.JointGrid(data=samples, x='Launch Angle', y='Exit Velocity', space=0)
+    g = sns.JointGrid(data=df, x='Exit Velocity', y='Launch Angle', space=0)
     g.plot_joint(sns.kdeplot,
              fill=True, cut = 20, clip = ((clip_min_x,clip_max_x),(clip_min_y,clip_max_y)),
              thresh=0, levels=100, cmap="rocket")
     g.plot_marginals(sns.histplot, color="#03051A", alpha=1, bins=25)
-    if (lastname[-1] == 'S'):
+    g.plot_joint(sns.scatterplot)
+    if (lastname.upper()[-1] == 'S'):
         g.fig.suptitle(lastname.upper() + "' HEAT MAP\n", y = 1.00)
     else: 
         g.fig.suptitle(lastname.upper() + "'S HEAT MAP\n", y = 1.00)
