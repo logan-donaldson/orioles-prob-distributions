@@ -7,8 +7,21 @@ from tkinter import *
 import pandas as pd
 
 root = Tk()
-e = Entry(root, width=50)
-e.pack()
+root.title("Compare Players")
+
+instructions = Label(root, text="Text")
+instructions.grid(row = 0, column = 1, pady = 20, padx = 100)
+
+entries = []
+for i in range(3):
+    entry = Entry(root)
+    entry.grid(row = 1, column = i, pady=20, padx = 10)
+    entries.append(entry)
+
+for i in range(3):
+    entry = Entry(root)
+    entry.grid(row = 2, column = i, pady=20, padx = 10)
+    entries.append(entry)
 
 def myClick():
     specs = e.get().split(",")
@@ -26,6 +39,12 @@ def myClick():
     df = pd.DataFrame(data=d)
     df = df.dropna(how='any')
     print(df.head(10))
+
+    ##############################################
+    # Testing something I saw in class: KL-Divergence
+    # Supposedly is a good way to compare distributions of pdfs
+    
+    #############################################
 
     kde = KernelDensity(bandwidth = 1.0, kernel = 'gaussian').fit(df)
     samples = kde.sample(n_samples = 10000, random_state = 42)
@@ -49,7 +68,9 @@ def myClick():
         g.fig.suptitle(lastname.upper() + "'S HEAT MAP\n", y = 1.00)
     plt.show()
     
-button = Button(root, text="Enter Player and Year Specifications in format: lastname,firstname,year", command=myClick)
-button.pack()
+#button1 = Button(root, text="Enter Player and Year Specifications in format: lastname,firstname,year", command=myClick)
+#button2 = Button(root, text="Enter Player2 and Year Specifications in format: lastname,firstname,year", command=myClick)
+#button1.pack()
+#button2.pack()
 
 root.mainloop()
