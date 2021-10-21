@@ -9,40 +9,66 @@ import pandas as pd
 root = Tk()
 root.title("Compare Players")
 
-header = Label(root, text="Orioles Player Comparison GUI")
-header.grid(row = 0, column = 1, pady = 20, padx = 100)
+header = Label(root, text="Player Comparison GUI")
+header.grid(row = 0, column = 1)
 
-instructions1 = Label(root, text="To look up a players KDE, use the first row of boxes to enter name and years, and then click the Lookup button")
-instructions2 = Label(root, text="To compare two players, use the second and third row of boxes to enter name and years, then click the compare button")
-instructions1.grid(row = 1, column = 1, pady = 20, padx = 100)
-instructions2.grid(row = 4, column = 1, pady = 20, padx = 100)
+instructions1 = Label(root, text="Lookup a Player")
+instructions2 = Label(root, text="Compare Two Players")
+instructions1.grid(row = 1, column = 1, pady = 1, padx = 1)
+instructions2.grid(row = 5, column = 1, pady = 1, padx = 1)
 
 entries = []
-for i in range(3):
+for i in range(4):
     entry = Entry(root)
-    entry.grid(row = 2, column = i, pady=20, padx = 10)
+    entry.grid(row = 2, column = i, padx= 0, pady= 0)
     entries.append(entry)
 
-for i in range(3):
+firstname = Label(root, text="First")
+lastname = Label(root, text="Last")
+fromdate = Label(root, text="From")
+todate = Label(root, text="To")
+firstname.grid(row=3, column = 0, pady=1, padx = 1)
+lastname.grid(row=3, column = 1, pady=1, padx = 1)
+fromdate.grid(row=3, column = 2, pady=1, padx = 1)
+todate.grid(row=3, column = 3, pady=1, padx = 1)
+firstname = Label(root, text="First")
+lastname = Label(root, text="Last")
+fromdate = Label(root, text="From")
+todate = Label(root, text="To")
+firstname.grid(row=7, column = 0, pady=1, padx = 1)
+lastname.grid(row=7, column = 1, pady=1, padx = 1)
+fromdate.grid(row=7, column = 2, pady=1, padx = 1)
+todate.grid(row=7, column = 3, pady=1, padx = 1)
+firstname = Label(root, text="First")
+lastname = Label(root, text="Last")
+fromdate = Label(root, text="From")
+todate = Label(root, text="To")
+firstname.grid(row=9, column = 0, pady=1, padx = 1)
+lastname.grid(row=9, column = 1, pady=1, padx = 1)
+fromdate.grid(row=9, column = 2, pady=1, padx = 1)
+todate.grid(row=9, column = 3, pady=1, padx = 1)
+
+
+for i in range(4):
     entry = Entry(root)
-    entry.grid(row = 5, column = i, pady=20, padx = 10)
+    entry.grid(row = 6, column = i)
     entries.append(entry)
 
-for i in range(3):
+for i in range(4):
     entry = Entry(root)
-    entry.grid(row=6, column=i, pady=20, padx=10)
+    entry.grid(row=8, column=i)
     entries.append(entry)
 
 def KDE():
-    specs = e.get().split(",")
-    lastname = specs[0]
-    firstname = specs[1]
-    year = specs[2]
+    firstname = entries[0].get()
+    lastname = entries[1].get()
+    fromdate = entries[2].get()
+    todate = entries[3].get()
     idDf = pd.DataFrame(playerid_lookup(lastname, firstname))
     id = idDf["key_mlbam"][0]
-    yearstart = year + "-01-01"
-    yearend = year + "-12-01"
-    playerstats = statcast_batter(yearstart, yearend, id)
+    #yearstart = year + "-01-01"
+    #yearend = year + "-12-01"
+    playerstats = statcast_batter(fromdate, todate, id)
     launchangle = playerstats["launch_angle"]
     exitvelocity = playerstats["launch_speed"]
     d = {"Launch Angle": launchangle, "Exit Velocity": exitvelocity}
@@ -79,12 +105,9 @@ def KDE():
     plt.show()
     
 button1 = Button(root, text="KDE", command=KDE)
-button1.grid(row = 3, column = 1, pady = 20, padx = 100)
+button1.grid(row = 4, column = 1, pady = 10)
 
 button2 = Button(root, text="Compare", command=KDE)
-button2.grid(row = 7, column = 1, pady = 20, padx = 100)
-#button2 = Button(root, text="Enter Player2 and Year Specifications in format: lastname,firstname,year", command=myClick)
-#button1.pack()
-#button2.pack()
+button2.grid(row = 10, column = 1, pady=10)
 
 root.mainloop()
