@@ -15,25 +15,25 @@ header.grid(row = 0, column = 1, pady = 20, padx = 100)
 instructions1 = Label(root, text="To look up a players KDE, use the first row of boxes to enter name and years, and then click the Lookup button")
 instructions2 = Label(root, text="To compare two players, use the second and third row of boxes to enter name and years, then click the compare button")
 instructions1.grid(row = 1, column = 1, pady = 20, padx = 100)
-instructions2.grid(row = 2, column = 1, pady = 20, padx = 100)
+instructions2.grid(row = 4, column = 1, pady = 20, padx = 100)
 
 entries = []
 for i in range(3):
     entry = Entry(root)
-    entry.grid(row = 3, column = i, pady=20, padx = 10)
+    entry.grid(row = 2, column = i, pady=20, padx = 10)
     entries.append(entry)
 
 for i in range(3):
     entry = Entry(root)
-    entry.grid(row = 4, column = i, pady=20, padx = 10)
+    entry.grid(row = 5, column = i, pady=20, padx = 10)
     entries.append(entry)
 
 for i in range(3):
     entry = Entry(root)
-    entry.grid(row=5, column=i, pady=20, padx=10)
+    entry.grid(row=6, column=i, pady=20, padx=10)
     entries.append(entry)
 
-def myClick():
+def KDE():
     specs = e.get().split(",")
     lastname = specs[0]
     firstname = specs[1]
@@ -78,7 +78,11 @@ def myClick():
         g.fig.suptitle(lastname.upper() + "'S HEAT MAP\n", y = 1.00)
     plt.show()
     
-#button1 = Button(root, text="Enter Player and Year Specifications in format: lastname,firstname,year", command=myClick)
+button1 = Button(root, text="KDE", command=KDE)
+button1.grid(row = 3, column = 1, pady = 20, padx = 100)
+
+button2 = Button(root, text="Compare", command=KDE)
+button2.grid(row = 7, column = 1, pady = 20, padx = 100)
 #button2 = Button(root, text="Enter Player2 and Year Specifications in format: lastname,firstname,year", command=myClick)
 #button1.pack()
 #button2.pack()
