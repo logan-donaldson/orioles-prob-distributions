@@ -9,18 +9,28 @@ import pandas as pd
 root = Tk()
 root.title("Compare Players")
 
-instructions = Label(root, text="Text")
-instructions.grid(row = 0, column = 1, pady = 20, padx = 100)
+header = Label(root, text="Orioles Player Comparison GUI")
+header.grid(row = 0, column = 1, pady = 20, padx = 100)
+
+instructions1 = Label(root, text="To look up a players KDE, use the first row of boxes to enter name and years, and then click the Lookup button")
+instructions2 = Label(root, text="To compare two players, use the second and third row of boxes to enter name and years, then click the compare button")
+instructions1.grid(row = 1, column = 1, pady = 20, padx = 100)
+instructions2.grid(row = 2, column = 1, pady = 20, padx = 100)
 
 entries = []
 for i in range(3):
     entry = Entry(root)
-    entry.grid(row = 1, column = i, pady=20, padx = 10)
+    entry.grid(row = 3, column = i, pady=20, padx = 10)
     entries.append(entry)
 
 for i in range(3):
     entry = Entry(root)
-    entry.grid(row = 2, column = i, pady=20, padx = 10)
+    entry.grid(row = 4, column = i, pady=20, padx = 10)
+    entries.append(entry)
+
+for i in range(3):
+    entry = Entry(root)
+    entry.grid(row=5, column=i, pady=20, padx=10)
     entries.append(entry)
 
 def myClick():
